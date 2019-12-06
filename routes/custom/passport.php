@@ -10,6 +10,6 @@ Route::group([
     'namespace'  => 'Passport',
     'middleware' => ['cors', 'throttle:20,1', 'debug_export', 'json_response'],
 ], function () {
-    Route::post('token', 'AccessToken@issueToken');
-    Route::post('personal/token', 'AccessToken@personalToken')->middleware('auth:api');
+    Route::post('token', 'GrantTokenController@issueToken');
+    Route::post('personal/token', 'GrantTokenController@personalToken')->middleware('auth:api');
 });

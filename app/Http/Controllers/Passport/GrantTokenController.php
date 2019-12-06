@@ -16,7 +16,7 @@ use Psr\Http\Message\ServerRequestInterface;
  * Date: 2019/12/5
  * Time: 下午 07:19
  */
-class AccessToken extends Controller
+class GrantTokenController extends Controller
 {
     /**
      * @param ServerRequestInterface $request
