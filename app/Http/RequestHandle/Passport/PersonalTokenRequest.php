@@ -29,13 +29,4 @@ class PersonalTokenRequest extends BaseFormRequest
             'name' => 'required|string|between:1,200'
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function messages()
-    {
-        return [
-        ];
-    }
 }
