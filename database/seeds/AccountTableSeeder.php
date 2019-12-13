@@ -1,5 +1,7 @@
 <?php
 
+use App\Repository\Role\RoleRepo;
+use App\Service\Account\AdminAccountService;
 use Illuminate\Database\Seeder;
 
 class AccountTableSeeder extends Seeder
@@ -9,17 +11,11 @@ class AccountTableSeeder extends Seeder
      *
      * @return void
      * @throws Exception
+     * @throws Throwable
      */
     public function run()
     {
-        \DB::table('account')->insert([
-            'account'      => 'admin',
-            'uuid'         => \Ramsey\Uuid\Uuid::uuid4()->toString(),
-            'password'     => Hash::make('adminis666'),
-            'display_name' => '最高權限者',
-            'mail'         => 'admin@house.cc',
-            'phone'        => '3939889',
-            'status'       => 'enable'
-        ]);
+        $account = new AdminAccountService(new RoleRepo());
+        $account->create();
     }
 }

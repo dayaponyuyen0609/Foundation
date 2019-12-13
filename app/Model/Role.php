@@ -19,4 +19,12 @@ class Role extends BaseORM
         'public',
         'enable'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function accounts()
+    {
+        return $this->belongsToMany(Account::class, 'account_role', 'role_id', 'account_id');
+    }
 }

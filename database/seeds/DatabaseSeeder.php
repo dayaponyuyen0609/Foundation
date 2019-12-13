@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //default seed
+        $this->call(RoleTableSeeder::class);
         $this->call(AccountTableSeeder::class);
         $this->call(PassportSeeder::class);
     }

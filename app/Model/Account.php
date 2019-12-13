@@ -33,9 +33,18 @@ class Account extends User
     ];
     protected $casts = ['remark' => 'json'];
     protected $hidden = [
+        'id',
         'password',
         'remember_token'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'account_role', 'account_id', 'role_id')->withTimestamps();
+    }
 
     /**
      * Used by passport issue token.
