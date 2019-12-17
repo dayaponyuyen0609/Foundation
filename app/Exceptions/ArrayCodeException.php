@@ -6,7 +6,7 @@
  * Time: 下午 01:12
  */
 
-namespace Modules\Base\Exception;
+namespace App\Exceptions;
 
 use XC\Independent\Kit\Support\Scalar\ArrayMaster;
 

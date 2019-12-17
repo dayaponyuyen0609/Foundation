@@ -9,13 +9,13 @@
 namespace App\Http\Middleware;
 
 use App\Constants\CommonCodes;
+use App\Exceptions\ApiErrorCodeException;
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use League\OAuth2\Server\Exception\OAuthServerException;
-use Modules\Base\Exception\ApiErrorCodeException;
 
 class JsonResponseHandle
 {

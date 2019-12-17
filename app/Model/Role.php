@@ -27,4 +27,16 @@ class Role extends BaseORM
     {
         return $this->belongsToMany(Account::class, 'account_role', 'role_id', 'account_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function nodes()
+    {
+        return $this->belongsToMany(Node::class, 'role_node', 'role_id', 'node_id')
+            ->withPivot('enable')
+            ->as('role_nodes')
+            ->using(RoleNode::class)
+            ->withTimestamps();
+    }
 }

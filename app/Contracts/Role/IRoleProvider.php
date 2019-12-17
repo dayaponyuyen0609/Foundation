@@ -16,7 +16,7 @@ interface IRoleProvider
     /**
      * @return Model[]|Collection
      */
-    public function get();
+    public function all();
 
     /**
      * @param string $code

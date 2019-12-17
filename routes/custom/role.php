@@ -10,5 +10,8 @@ Route::group([
     'namespace'  => 'Role',
     'middleware' => ['cors', 'throttle:20,1', 'debug_export', 'json_response'],
 ], function () {
-    Route::post('list', 'RoleController@index');
+    Route::get('/', 'RoleController@index');
+    Route::post('/', 'RoleController@store');
+    Route::put('/', 'RoleController@update');
+    Route::delete('/', 'RoleController@delete');
 });

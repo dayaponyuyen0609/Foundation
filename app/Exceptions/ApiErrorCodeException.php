@@ -6,7 +6,7 @@
  * Time: 下午 01:12
  */
 
-namespace Modules\Base\Exception;
+namespace App\Exceptions;
 
 class ApiErrorCodeException extends ArrayCodeException
 {

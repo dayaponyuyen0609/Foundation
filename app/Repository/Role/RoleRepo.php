@@ -17,16 +17,74 @@ use Illuminate\Database\Eloquent\Collection;
 class RoleRepo implements IRoleProvider
 {
     /**
-     * @param array $attribute
-     * @return bool
+     * @param string|null $enable
+     * @param int $page
+     * @param int $perpage
+     * @return Role[]|Collection
      */
-    public function save(array $attribute)
+    public function get(
+        string $enable = null,
+        int $page = 1,
+        int $perpage = 20
+    ) {
+        try {
+            $query = Role::query()->where('public', NYConstants::YES);
+            if (!is_null($enable)) {
+                $query->where('enable', $enable);
+            }
+            $result = $query->forPage($page, $perpage)->orderByDesc('created_at')->get();
+        } catch (\Throwable $e) {
+            $result = collect();
+            LaravelLoggerUtil::loggerException($e);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $attribute
+     * @return Role|null
+     */
+    public function create(array $attribute)
     {
-        $result = false;
+        $result = null;
         try {
             $role = new Role();
-            $result = $role->fill($attribute)->save();
+            $result = $role->create($attribute);
         } catch (\Throwable $e) {
+            LaravelLoggerUtil::loggerException($e);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param int $id
+     * @param array $attribute
+     * @return int
+     */
+    public function update(int $id, array $attribute)
+    {
+        try {
+            $result = Role::where('id', $id)->update($attribute);
+        } catch (\Throwable $e) {
+            $result = 0;
+            LaravelLoggerUtil::loggerException($e);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id)
+    {
+        try {
+            $result = Role::where('id', $id)->delete();
+        } catch (\Throwable $e) {
+            $result = 0;
             LaravelLoggerUtil::loggerException($e);
         }
 
@@ -36,13 +94,13 @@ class RoleRepo implements IRoleProvider
     /**
      * @return Role[]|Collection
      */
-    public function get()
+    public function all()
     {
         $result = collect();
         try {
             $result = Role::where('enable', NYConstants::YES)
                 ->where('public', NYConstants::YES)
-                ->first();
+                ->get();
         } catch (\Throwable $e) {
             LaravelLoggerUtil::loggerException($e);
         }

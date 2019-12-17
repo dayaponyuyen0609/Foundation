@@ -9,6 +9,11 @@
 namespace App\Service\Role;
 
 use App\Constants\NYConstants;
+use App\Http\RequestHandle\Role\DeleteRequestHandle;
+use App\Http\RequestHandle\Role\ListRequestHandle;
+use App\Http\RequestHandle\Role\StoreRequestHandle;
+use App\Http\RequestHandle\Role\UpdateRequestHandle;
+use App\Model\Role;
 use App\Repository\Role\RoleRepo;
 
 class RoleService
@@ -25,11 +30,53 @@ class RoleService
     }
 
     /**
+     * @param ListRequestHandle $request
+     * @return Role[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function list(ListRequestHandle $request)
+    {
+        return $this->repo->get(
+            $request->getEnable(),
+            $request->getPage(),
+            $request->getPerpage()
+        );
+    }
+
+    /**
+     * @param StoreRequestHandle $request
+     * @return Role|null
+     */
+    public function store(StoreRequestHandle $request)
+    {
+        return $this->add(
+            $request->getDisplayName(),
+            $request->getCode(),
+            NYConstants::YES,
+            $request->getEnable()
+        );
+    }
+
+    /**
+     * @param UpdateRequestHandle $request
+     * @return int
+     */
+    public function update(UpdateRequestHandle $request)
+    {
+        $attribute = [
+            'display_name' => $request->getDisplayName(),
+            'code'         => $request->getCode(),
+            'enable'       => $request->getEnable()
+        ];
+
+        return $this->repo->update($request->getId(), $attribute);
+    }
+
+    /**
      * @param string $displayName
      * @param string $code
      * @param string $public
      * @param string $enable
-     * @return bool
+     * @return Role|null
      */
     public function add(
         string $displayName,
@@ -44,6 +91,15 @@ class RoleService
             'enable'       => $enable
         ];
 
-        return $this->repo->save($attribute);
+        return $this->repo->create($attribute);
+    }
+
+    /**
+     * @param DeleteRequestHandle $request
+     * @return int
+     */
+    public function delete(DeleteRequestHandle $request)
+    {
+        return $this->repo->delete($request->getId());
     }
 }
