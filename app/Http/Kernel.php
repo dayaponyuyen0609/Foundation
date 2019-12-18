@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
         ],
         'api' => [
             'debug_export',
-            'throttle:120,1',
+            'throttle:180,1',
             'cors',
             'auth:api',
             'json_response',

@@ -5,10 +5,13 @@
  * Date: 2019/12/6
  * Time: 下午 08:33
  */
+
+use App\Policies\RolePolicy;
+
 Route::group([
     'prefix'     => 'role',
     'namespace'  => 'Role',
-    'middleware' => ['cors', 'throttle:20,1', 'debug_export', 'json_response'],
+    'middleware' => ['api', 'can:manage,' . RolePolicy::class],
 ], function () {
     Route::get('/', 'RoleController@index');
     Route::post('/', 'RoleController@store');

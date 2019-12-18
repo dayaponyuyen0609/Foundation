@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleTableSeeder::class);
         $this->call(AccountTableSeeder::class);
         $this->call(PassportSeeder::class);
+        //role function seed
+        $this->call(RoleNodeSeeder::class);
     }
 }

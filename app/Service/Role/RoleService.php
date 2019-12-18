@@ -13,6 +13,7 @@ use App\Http\RequestHandle\Role\DeleteRequestHandle;
 use App\Http\RequestHandle\Role\ListRequestHandle;
 use App\Http\RequestHandle\Role\StoreRequestHandle;
 use App\Http\RequestHandle\Role\UpdateRequestHandle;
+use App\Model\Node;
 use App\Model\Role;
 use App\Repository\Role\RoleRepo;
 
@@ -101,5 +102,20 @@ class RoleService
     public function delete(DeleteRequestHandle $request)
     {
         return $this->repo->delete($request->getId());
+    }
+
+    /**
+     * @param string $code
+     * @param Node $node
+     * @return Role|null
+     */
+    public function bindNode(string $code, Node $node)
+    {
+        $role = $this->repo->firstByCode($code);
+        if (!is_null($role)) {
+            $this->repo->bindNode($role, $node);
+        }
+
+        return $role;
     }
 }

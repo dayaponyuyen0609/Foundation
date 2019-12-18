@@ -10,6 +10,7 @@ namespace App\Repository\Role;
 
 use App\Constants\NYConstants;
 use App\Contracts\Role\IRoleProvider;
+use App\Model\Node;
 use App\Model\Role;
 use App\Util\LaravelLoggerUtil;
 use Illuminate\Database\Eloquent\Collection;
@@ -85,6 +86,23 @@ class RoleRepo implements IRoleProvider
             $result = Role::where('id', $id)->delete();
         } catch (\Throwable $e) {
             $result = 0;
+            LaravelLoggerUtil::loggerException($e);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param Role $role
+     * @param Node $node
+     * @return array
+     */
+    public function bindNode(Role $role, Node $node)
+    {
+        $result = [];
+        try {
+            $result = $role->nodes()->syncWithoutDetaching($node);
+        } catch (\Throwable $e) {
             LaravelLoggerUtil::loggerException($e);
         }
 

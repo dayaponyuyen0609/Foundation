@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Identify\Identity;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        \Auth::provider('identity', function ($app, $config) {
+            return new Identity($app['hash'], $config['model']);
+        });
     }
 
     /**

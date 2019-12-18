@@ -21,6 +21,7 @@ class CreateNodeTable extends Migration
             $table->enum('public', NYConstants::enum())->default(NYConstants::NO)->comment('是否公開取用');
             $table->string('display_name', 50)->comment('預設顯示名稱');
             $table->string('code', 50)->comment('代號');
+            $table->unsignedInteger('parent_id')->nullable()->comment('父節點');
             $table->timestamps();
             // index
             $table->unique('code', 'node_code_unique');
