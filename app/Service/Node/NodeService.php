@@ -16,7 +16,6 @@ class NodeService
     /**
      * @param string $displayName
      * @param string $code
-     * @param int|null $parentId
      * @param string $enable
      * @param string $display
      * @param string $public
@@ -25,7 +24,6 @@ class NodeService
     public function add(
         string $displayName,
         string $code,
-        int $parentId = null,
         string $enable = NYConstants::YES,
         string $display = NYConstants::YES,
         string $public = NYConstants::YES
@@ -34,7 +32,6 @@ class NodeService
         $attribute = [
             'display_name' => $displayName,
             'code'         => strtoupper($code),
-            'parent_id'    => $parentId,
             'enable'       => $enable,
             'display'      => $display,
             'public'       => $public
