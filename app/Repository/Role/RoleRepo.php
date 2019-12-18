@@ -141,4 +141,23 @@ class RoleRepo implements IRoleProvider
 
         return $result;
     }
+
+    /**
+     * @param array $ids
+     * @return Collection
+     */
+    public function firstByIds(array $ids)
+    {
+        $result = collect();
+        try {
+            $result = Role::where('public', NYConstants::YES)
+                ->where('enable', NYConstants::YES)
+                ->whereIn('id', $ids)
+                ->get();
+        } catch (\Throwable $e) {
+            LaravelLoggerUtil::loggerException($e);
+        }
+
+        return $result;
+    }
 }

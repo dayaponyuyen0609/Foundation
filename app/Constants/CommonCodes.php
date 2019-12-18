@@ -11,8 +11,8 @@ namespace App\Constants;
 class CommonCodes
 {
     const OK = '0';
-    const ERROR = 'common-0001';
-    const REQUEST_VALIDATE_FAIL = 'common-0002';
-    const ACCESS_DENIED = 'common-0003';
-    const AUTHENTICATION_FAIL = 'common-0004';
+    const ERROR = '0-0001';
+    const REQUEST_VALIDATE_FAIL = '0-0002';
+    const ACCESS_DENIED = '0-0003';
+    const AUTHENTICATION_FAIL = '0-0004';
 }

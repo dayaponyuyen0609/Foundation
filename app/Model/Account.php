@@ -23,6 +23,7 @@ class Account extends User
     protected $softDelete = true;
     protected $fillable = [
         'account',
+        'password',
         'uuid',
         'display_name',
         'status',

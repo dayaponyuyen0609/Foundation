@@ -23,4 +23,10 @@ interface IRoleProvider
      * @return Model|null
      */
     public function firstByCode(string $code);
+
+    /**
+     * @param array $ids
+     * @return Collection
+     */
+    public function firstByIds(array $ids);
 }
