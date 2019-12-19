@@ -10,19 +10,19 @@ namespace App\Repository\Node;
 
 use App\Model\Node;
 use App\Util\LaravelLoggerUtil;
+use Illuminate\Database\Eloquent\Model;
 
 class NodeRepo
 {
     /**
      * @param array $attribute
-     * @return Node|null
+     * @return Node|Model|null
      */
     public function create(array $attribute)
     {
         $result = null;
         try {
-            $node = new Node();
-            $result = $node->create($attribute);
+            $result = Node::query()->create($attribute);
         } catch (\Throwable $e) {
             LaravelLoggerUtil::loggerException($e);
         }

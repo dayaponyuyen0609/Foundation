@@ -16,18 +16,20 @@ use App\Http\RequestHandle\Role\UpdateRequestHandle;
 use App\Model\Node;
 use App\Model\Role;
 use App\Repository\Role\RoleRepo;
+use XC\Independent\Kit\Support\Traits\Pattern\Singleton;
 
 class RoleService
 {
+    use Singleton;
     /** @var RoleRepo $repo */
     private $repo;
 
     /**
-     * AdminRoleService constructor.
+     * Initialize class.
      */
-    public function __construct()
+    protected function init()
     {
-        $this->repo = new RoleRepo();
+        $this->repo = $this->repo ?: new RoleRepo();
     }
 
     /**

@@ -14,6 +14,7 @@ use App\Model\Node;
 use App\Model\Role;
 use App\Util\LaravelLoggerUtil;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class RoleRepo implements IRoleProvider
 {
@@ -44,14 +45,13 @@ class RoleRepo implements IRoleProvider
 
     /**
      * @param array $attribute
-     * @return Role|null
+     * @return Role|Model|null
      */
     public function create(array $attribute)
     {
         $result = null;
         try {
-            $role = new Role();
-            $result = $role->create($attribute);
+            $result = Role::query()->create($attribute);
         } catch (\Throwable $e) {
             LaravelLoggerUtil::loggerException($e);
         }

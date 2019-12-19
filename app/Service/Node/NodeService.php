@@ -10,9 +10,22 @@ namespace App\Service\Node;
 
 use App\Constants\NYConstants;
 use App\Repository\Node\NodeRepo;
+use XC\Independent\Kit\Support\Traits\Pattern\Singleton;
 
 class NodeService
 {
+    use Singleton;
+    /** @var NodeRepo $repo */
+    private $repo;
+
+    /**
+     * Initialize class.
+     */
+    protected function init()
+    {
+        $this->repo = $this->repo ?: new NodeRepo();
+    }
+
     /**
      * @param string $displayName
      * @param string $code
@@ -28,7 +41,6 @@ class NodeService
         string $display = NYConstants::YES,
         string $public = NYConstants::YES
     ) {
-        $repo = new NodeRepo();
         $attribute = [
             'display_name' => $displayName,
             'code'         => strtoupper($code),
@@ -37,6 +49,6 @@ class NodeService
             'public'       => $public
         ];
 
-        return $repo->create($attribute);
+        return $this->repo->create($attribute);
     }
 }

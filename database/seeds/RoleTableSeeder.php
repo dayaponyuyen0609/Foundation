@@ -14,7 +14,7 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        $service = new RoleService();
+        $service = RoleService::getInstance();
         $service->add('超級管理員', RoleCodeConstants::ADMIN, NYConstants::NO);
         $service->add('系統管理員', RoleCodeConstants::SYSTEM_MANAGER);
         $service->add('代理', RoleCodeConstants::AGENT);

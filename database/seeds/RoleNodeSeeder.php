@@ -15,8 +15,8 @@ class RoleNodeSeeder extends Seeder
      */
     public function run()
     {
-        $nodeService = new NodeService();
-        $roleService = new RoleService();
+        $nodeService = NodeService::getInstance();
+        $roleService = RoleService::getInstance();
         $node = $nodeService->add('角色管理', NodeCodeConstants::ROLE_MANAGE);
         if (!is_null($node)) {
             $roleService->bindNode(RoleCodeConstants::ADMIN, $node);

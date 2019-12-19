@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\Role\IRoleProvider;
 use App\Identify\Identity;
+use App\Repository\Role\RoleRepo;
+use App\Service\Account\AdminAccountService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
         \Auth::provider('identity', function ($app, $config) {
             return new Identity($app['hash'], $config['model']);
         });
+        $this->app->when(AdminAccountService::class)->needs(IRoleProvider::class)->give(RoleRepo::class);
     }
 
     /**
