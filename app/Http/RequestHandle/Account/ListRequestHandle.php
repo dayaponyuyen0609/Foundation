@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: funny
- * Date: 2019/12/16
- * Time: 下午 02:15
+ * Date: 2019/12/30
+ * Time: 下午 02:17
  */
 
-namespace App\Http\RequestHandle\Role;
+namespace App\Http\RequestHandle\Account;
 
-use App\Constants\NYConstants;
+use App\Constants\Account\AccountStatusConstants;
 use App\Http\RequestHandle\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
@@ -17,9 +17,25 @@ class ListRequestHandle extends BaseFormRequest
     /**
      * @return string|null
      */
-    public function getEnable()
+    public function getAccount()
     {
-        return $this->get('enable', null);
+        return $this->get('account');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDisplayName()
+    {
+        return $this->get('display_name');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStatus()
+    {
+        return $this->get('status');
     }
 
     /**
@@ -48,9 +64,11 @@ class ListRequestHandle extends BaseFormRequest
     public function rules()
     {
         return [
-            'enable'  => 'sometimes|required|string|' . Rule::in(NYConstants::enum()),
-            'page'    => 'sometimes|required|integer|min:1',
-            'perpage' => 'sometimes|required|integer|between:1,100',
+            'account'      => 'sometimes|required|string',
+            'display_name' => 'sometimes|required|string',
+            'status'       => 'sometimes|required|string|' . Rule::in(AccountStatusConstants::enum()),
+            'page'         => 'sometimes|required|integer|min:1',
+            'perpage'      => 'sometimes|required|integer|between:1,100',
         ];
     }
 }

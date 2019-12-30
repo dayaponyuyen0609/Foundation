@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Role;
 
+use App\Constants\NYConstants;
 use App\Http\RequestHandle\Role\DeleteRequestHandle;
 use App\Http\RequestHandle\Role\ListRequestHandle;
 use App\Http\RequestHandle\Role\StoreRequestHandle;
@@ -32,7 +33,12 @@ class RoleController extends Controller
      */
     public function store(StoreRequestHandle $request)
     {
-        return app(RoleService::class)->store($request);
+        return app(RoleService::class)->add(
+            $request->getDisplayName(),
+            $request->getCode(),
+            NYConstants::YES,
+            $request->getEnable()
+        );
     }
 
     /**

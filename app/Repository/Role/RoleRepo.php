@@ -116,9 +116,7 @@ class RoleRepo implements IRoleProvider
     {
         $result = collect();
         try {
-            $result = Role::where('enable', NYConstants::YES)
-                ->where('public', NYConstants::YES)
-                ->get();
+            $result = Role::where('public', NYConstants::YES)->get();
         } catch (\Throwable $e) {
             LaravelLoggerUtil::loggerException($e);
         }

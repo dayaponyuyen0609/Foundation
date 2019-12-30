@@ -8,7 +8,7 @@
 
 namespace App\Util;
 
-use Modules\Base\Exception\ApiErrorCodeException;
+use App\Exceptions\ApiErrorCodeException;
 
 class LaravelLoggerUtil
 {

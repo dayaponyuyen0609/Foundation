@@ -8,26 +8,52 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Http\RequestHandle\Account\DeleteRequestHandle;
+use App\Http\RequestHandle\Account\ListRequestHandle;
 use App\Http\RequestHandle\Account\StoreRequestHandle;
-use App\Repository\Role\RoleRepo;
-use App\Service\Account\AccountService;
+use App\Http\RequestHandle\Account\UpdateRequestHandle;
+use App\Service\Account\ManageAccountService;
 use Illuminate\Routing\Controller;
 
 class AccountController extends Controller
 {
-    public function index()
+    /**
+     * @param ListRequestHandle $request
+     * @return array
+     */
+    public function index(ListRequestHandle $request)
     {
+        return app(ManageAccountService::class)->list($request)->toArray();
     }
 
     /**
      * @param StoreRequestHandle $request
      * @return \App\Model\Account|null
      * @throws \App\Exceptions\ApiErrorCodeException
+     * @throws \Throwable
      */
     public function store(StoreRequestHandle $request)
     {
-        $service = new AccountService(new RoleRepo());
+        return app(ManageAccountService::class)->store($request);
+    }
 
-        return $service->store($request);
+    /**
+     * @param UpdateRequestHandle $request
+     * @return \App\Model\Account|null
+     * @throws \App\Exceptions\ApiErrorCodeException
+     * @throws \Throwable
+     */
+    public function update(UpdateRequestHandle $request)
+    {
+        return app(ManageAccountService::class)->update($request);
+    }
+
+    /**
+     * @param DeleteRequestHandle $request
+     * @return int
+     */
+    public function delete(DeleteRequestHandle $request)
+    {
+        return app(ManageAccountService::class)->delete($request);
     }
 }
